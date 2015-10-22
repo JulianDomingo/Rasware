@@ -12,8 +12,10 @@ void blink(void) {
     blink_on = !blink_on;
 }
 
-tServo *servo1 = InitializeServo(pin);
-tServo *servo2 = InitializeServo(pin);
+tServo *servo1;
+servo1 = InitializeServo(PIN_B2);
+tServo *servo2;
+servo2 = InitializeServo(PIN_F0);
 
 // The 'main' function is the entry point of the program
 int main(void) {
