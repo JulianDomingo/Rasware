@@ -39,7 +39,7 @@ int main(void) {
     tADC *adc3;
     adc3 = InitializeADC(PIN_XX);
     float line[8];
-    int i = 0;   
+    int i = 1;   
     while (1) {
      	LineSensorReadArray(gls, line);
 	Printf("Hello World!\n");
@@ -48,23 +48,51 @@ int main(void) {
 	left = line[0]+line[1]+line[2];
 	right =line[5]+line[6]+line[7];
 	middle= line[3]+line[4];
+	all= line[0]+ line[1]+line[2]+line[3]+line[4]+line[5]+line[6]+line[7]
 
-//If sensors detect line on left side, turn gradually right to align.
-//Converse for right.
-
-   if(left>1){
-	SetServo(servo1, .25f);
-	SetServo(servo2, .50f);
+    if(all>10){
+//If line sesnor reads a line
+	if(i&1){
+//If sensors detect a line, if i is odd turn left. if i is even turn right.
+		SetServo(servo1, .25f);
+		SetServo(servo2, .50f);
+		void Wait(1.5);
+		i=i+1;
+		   if(left>1){
+			SetServo(servo1, .25f);
+			SetServo(servo2, .50f);
 }
-   else if (right>1){
-	SetServo(servo1, .50f);
-	SetServo(servo2, .25f);
+		   else if (right>1){
+			SetServo(servo1, .50f);
+			SetServo(servo2, .25f);
 }
-   else if(middle>1){
-	SetServo(servo1, .25f);
-	SetServo(servo2, .75f);
-}   else {
-	SetServo(servo1, .25f);
-	SetServo(servo2, .75f);
+		   else if(middle>1){
+			SetServo(servo1, .25f);
+			SetServo(servo2, .75f);
+} 	       	   else {
+			SetServo(servo1, .25f);
+			SetServo(servo2, .75f);
+}
+}
+	else{
+		SetServo(servo1, .50f);
+		SetServo(servo2, .25f);
+		void Wait(1.5);
+		i=i+1;
+		   if(left>1){
+			SetServo(servo1, .25f);
+			SetServo(servo2, .50f);
+}
+		   else if (right>1){
+			SetServo(servo1, .50f);
+			SetServo(servo2, .25f);
+}
+		   else if(middle>1){
+			SetServo(servo1, .25f);
+			SetServo(servo2, .75f);
+} 	       	   else {
+			SetServo(servo1, .25f);
+			SetServo(servo2, .75f);
+}
 }
 }
