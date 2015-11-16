@@ -81,6 +81,7 @@ int main(void) {
 			SetServo(servo1, .25f);
 			SetServo(servo2, .75f);
 			}
+		break;
 		
 	case walll:
  
@@ -95,7 +96,8 @@ int main(void) {
 		else if(all>100){
 			s= turnr;
 			}
-
+		break;
+	
 	case wallr:	
 
        		if(wallright>1){
@@ -109,13 +111,15 @@ int main(void) {
 		else if(all>100){
 			s= turnl;
 			}
-
+		break;
+		
 	case turnll:
 		SetServo(servo1, .25f);
 		SetServo(servo2, .50f);
 		Wait(1.5f);
 		i=i+1;
 		s = line; 			
+		break;
 
 	case turnlr:
 		SetServo(servo1, .25f);
@@ -123,19 +127,21 @@ int main(void) {
 		i=i+1;	
 		Wait(1.5f);
 		s= line;
+		break;
 
 	case turnwl:
 		SetServo(servo1, .25f);
 		SetServo(servo2, .50f);
 		Wait(1.5f);
 		s = wallr;
+		break;
 
 	case turnwr:
 		SetServo(servo1, .25f);
 		SetServo(servo2, .50f);
 		Wait(1.5f);
 		s=walll;
-		
+		break;		
  
 }
 }
