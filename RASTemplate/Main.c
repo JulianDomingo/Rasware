@@ -11,58 +11,7 @@ tBoolean blink_on = true;
 void blink(void) {
     SetPin(PIN_F3, blink_on);
     blink_on = !blink_on;
-}
-
-void linefollow(int i, int j) {
-	
-	if(i&1){
-//If sensors detect a line, if i is odd turn left. if i is even turn right.
-		SetServo(servo1, .25f);
-		SetServo(servo2, .50f);
-		Wait(1.5f);
-		i=i+1;
-		j=j+1;
-		   if(left>1){
-			SetServo(servo1, .25f);
-			SetServo(servo2, .50f);
-}
-		   else if(right>1){
-			SetServo(servo1, .50f);
-			SetServo(servo2, .25f);
-}
-		   else if(middle>1){
-			SetServo(servo1, .25f);
-			SetServo(servo2, .75f);
-} 	       	   else {
-			SetServo(servo1, .25f);
-			SetServo(servo2, .75f);
-}
-}
-	else{
-		SetServo(servo1, .50f);
-		SetServo(servo2, .25f);
-		Wait(1.5f);
-		i=i+1;
-		j+j+1;
-		   if(left>1){
-			SetServo(servo1, .25f);
-			SetServo(servo2, .50f);
-}
-		   else if (right>1){
-			SetServo(servo1, .50f);
-			SetServo(servo2, .25f);
-}
-		   else if(middle>1){
-			SetServo(servo1, .25f);
-			SetServo(servo2, .75f);
-} 	       	   else {
-			SetServo(servo1, .25f);
-			SetServo(servo2, .75f);
-}
-}
-}
-
-
+		 }
 
 int main(void) {
    
@@ -103,57 +52,90 @@ int main(void) {
  	wallleft = ADCRead(adc1);
 	wallright = ADCRead(adc2);
 	wallfront = ADCRead(adc3);
-    
-	enum state { line, walll, wallr, turnl, turnr, turnw};
-	state s = wall;
-	switch (s)
+    	int i = 1;
+	enum state {line, walll, wallr, turnll, turnlr, turnwl, turnwr};
+	state s = wallr;
+	switch (s){
 
 	case line:
-
+		if(left>1){
+			SetServo(servo1, .25f);
+			SetServo(servo2, .50f);
+			}
+		else if(right>1){
+			SetServo(servo1, .50f);
+			SetServo(servo2, .25f);
+			}
+		else if(middle>1){
+			SetServo(servo1, .25f);
+			SetServo(servo2, .75f);
+			}
+ 	       	else if(wallfront>10){
+			if(i&1){
+				s = turnwr;
+				}
+			else {
+				s = turnwl;
+				}
+		else {
+			SetServo(servo1, .25f);
+			SetServo(servo2, .75f);
+			}
+		
 	case walll:
  
-	if(wallleft>1){
-		SetServo(servo1, .25f);
-		SetServo(servo2, .50f);
-		}		
-	else if(wallleft<1){
-		SetServo(servo1, .50f);
-		SetServo(servo2, .25f);
-		}
-	else if(all>100){
-	s= turnr;
-	}
+		if(wallleft>1){
+			SetServo(servo1, .25f);
+			SetServo(servo2, .50f);
+			}		
+		else if(wallleft<1){
+			SetServo(servo1, .50f);
+			SetServo(servo2, .25f);
+			}	
+		else if(all>100){
+			s= turnr;
+			}
 
 	case wallr:	
 
-       	if(wallright>1){
-		SetServo(servo1, .25f);
-		SetServo(servo2, .50f);
-		}
-	else if(wallright<1){
-		SetServo(servo1, .50f);
-		SetServo(servo2, .25f);
-		}
-	else if(all>100){
-		s= turnl;
-		}
+       		if(wallright>1){
+			SetServo(servo1, .25f);
+			SetServo(servo2, .50f);
+			}
+		else if(wallright<1){
+			SetServo(servo1, .50f);
+			SetServo(servo2, .25f);
+			}
+		else if(all>100){
+			s= turnl;
+			}
 
-	case turnl:
-		SetServo(servo1, .25f);
-		SetServo(servo2, .50f);
-		Wait(1.5f);
-		
-	case turnr:
+	case turnll:
 		SetServo(servo1, .25f);
 		SetServo(servo2, .50f);
 		Wait(1.5f);
+		i=i+1;
+		s = line; 			
+
+	case turnlr:
+		SetServo(servo1, .25f);
+		SetServo(servo2, .50f);
+		i=i+1;	
+		Wait(1.5f);
+		s= line;
+
+	case turnwl:
+		SetServo(servo1, .25f);
+		SetServo(servo2, .50f);
+		Wait(1.5f);
+		s = wallr;
+
+	case turnwr:
+		SetServo(servo1, .25f);
+		SetServo(servo2, .50f);
+		Wait(1.5f);
+		s=walll;
 		
-	case turnw:
-
-
-
-
- 
  
 }
 }
