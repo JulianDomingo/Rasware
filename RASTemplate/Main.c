@@ -53,11 +53,11 @@ int main(void) {
 	wallright = ADCRead(adc2);
 	wallfront = ADCRead(adc3);
     	int i = 1;
-	enum state {line, walll, wallr, turnll, turnlr, turnwl, turnwr};
-	state s = wallr;
-	switch (s){
+	enum State {linee, walll, wallr, turnll, turnlr, turnwl, turnwr};
+	enum State s = wallr;
 
-	case line:
+	switch (s){
+	case linee:
 		if(left>1){
 			SetServo(servo1, .25f);
 			SetServo(servo2, .50f);
@@ -77,6 +77,7 @@ int main(void) {
 			else {
 				s = turnwl;
 				}
+					}
 		else {
 			SetServo(servo1, .25f);
 			SetServo(servo2, .75f);
@@ -94,7 +95,7 @@ int main(void) {
 			SetServo(servo2, .25f);
 			}	
 		else if(all>100){
-			s= turnr;
+			s= turnlr;
 			}
 		break;
 	
@@ -109,7 +110,7 @@ int main(void) {
 			SetServo(servo2, .25f);
 			}
 		else if(all>100){
-			s= turnl;
+			s= turnll;
 			}
 		break;
 		
@@ -118,7 +119,7 @@ int main(void) {
 		SetServo(servo2, .50f);
 		Wait(1.5f);
 		i=i+1;
-		s = line; 			
+		s = linee; 			
 		break;
 
 	case turnlr:
@@ -126,7 +127,7 @@ int main(void) {
 		SetServo(servo2, .50f);
 		i=i+1;	
 		Wait(1.5f);
-		s= line;
+		s= linee;
 		break;
 
 	case turnwl:
@@ -143,5 +144,6 @@ int main(void) {
 		s=walll;
 		break;		
  
+}
 }
 }
