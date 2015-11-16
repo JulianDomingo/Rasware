@@ -22,14 +22,14 @@ int main(void) {
     servo2 = InitializeServo(PIN_F0);
     tLineSensor *gls;
     gls = InitializeGPIOLineSensor(
-	PIN_A6,
-	PIN_A5,
-	PIN_B4,
-	PIN_E5,
-	PIN_E4,
-	PIN_B1,
-	PIN_B0,
-	PIN_B5
+	PIN_B3,
+	PIN_C4,
+	PIN_C5,
+	PIN_C6,
+	PIN_C7,
+	PIN_D6,
+	PIN_D7,
+	PIN_F4
 	);
     tADC *adc1;
     adc1 = InitializeADC(PIN_E1);
@@ -38,21 +38,20 @@ int main(void) {
     tADC *adc3;
     adc3 = InitializeADC(PIN_E3);
     float line[8];
-  
+    float left, right, middle, all;
+    float wallleft, wallright, wallfront;
+    int i = 1;
     while (1) {
 
 	LineSensorReadArray(gls, line);
-	Printf("Hello World!\n");
-	float left, right, middle, all;
 	left = line[0]+line[1]+line[2];
 	right =line[5]+line[6]+line[7];
 	middle= line[3]+line[4];
 	all= line[0]+ line[1]+line[2]+line[3]+line[4]+line[5]+line[6]+line[7];
-	float wallleft, wallright, wallfront;
  	wallleft = ADCRead(adc1);
 	wallright = ADCRead(adc2);
 	wallfront = ADCRead(adc3);
-    	int i = 1;
+	Printf(wallleft"\n");
 	enum State {linee, walll, wallr, turnll, turnlr, turnwl, turnwr};
 	enum State s = wallr;
 
